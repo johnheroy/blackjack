@@ -6,7 +6,7 @@ class window.GameStatusView extends Backbone.View
 
 
   initialize: ->
-    @model.on 'change', => @render
+    @model.on 'change', => @render()
     @render()
 
   render: ->

@@ -5,18 +5,18 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop()).last()
+    @add(@deck.pop())
     if @isDealer
       @checkDealerHand()
     else
       @checkPlayerHand()
+    @last()
     # if @getBestScore > 21 and !@isDealer then this.trigger
 
   scores: ->
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
     # when there is an ace, it offers you two scores - the original score, and score + 10.
-
     cardValues = @map (card) ->
       card.get 'value'
 
@@ -29,11 +29,10 @@ class window.Hand extends Backbone.Collection
           val + 10
         copy = copy.map (val) ->
           val + 1
-        result = result.concat copy
+        results = results.concat copy
       else
         results = results.map (val) ->
           val + cardValue
-
     results
 
 
@@ -52,3 +51,12 @@ class window.Hand extends Backbone.Collection
       if score > bestScore and score <= 21
         bestScore = score
     bestScore
+
+  checkPlayerHand: ->
+    if @getBestScore() > 21
+      console.log 'triggering'
+      @trigger 'lost'
+
+  checkDealerHand: ->
+    # todo
+

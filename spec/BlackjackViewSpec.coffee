@@ -45,6 +45,7 @@ describe "hit", ->
     hand.add jack
     hand.add queen
     hand.add seven
+    console.log appV.$el.find('.game-status-container').html()
     assert.strictEqual appV.$el.find('.game-status').text(), 'You Lose!'
 
 

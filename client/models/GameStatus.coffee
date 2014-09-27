@@ -4,7 +4,8 @@ class window.GameStatus extends Backbone.Model
     status: ''
 
   gameWon: ->
-    @status.set 'You Win!'
+    @set 'status', 'You Win!'
 
   gameLost: ->
-    @status.set 'You Lost!'
+    @set 'status', 'You Lost!'
+    console.log @get 'status'
