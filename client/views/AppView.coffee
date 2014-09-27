@@ -1,10 +1,13 @@
 class window.AppView extends Backbone.View
 
+  className: 'app'
+
   template: _.template '
-    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
     <div class="game-status-container"></div>
-    <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
+    <div class="player-hand-container"></div>
+    <button class="hit-button btn btn-default">Hit</button> <button class="stand-button btn btn-default">Stand</button>
+    <button class="new-game-button btn btn-primary">New Game?</button>
   '
 
   events:
@@ -15,6 +18,10 @@ class window.AppView extends Backbone.View
       @lockButtons()
       @model.get('playerHand').stand()
       @model.get('dealerHand').stand()
+    'click .new-game-button': ->
+      console.log("receive new game message")
+      @model.resetAttr()
+      @render()
 
   initialize: ->
     @render()
@@ -25,8 +32,9 @@ class window.AppView extends Backbone.View
     $('.stand-button').attr 'disabled', true
 
   render: ->
+    console.log("render called")
     @$el.children().detach()
     @$el.html @template()
     @$('.game-status-container').html new GameStatusView(model: @model.get 'gameStatus').el
-    @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+    @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el

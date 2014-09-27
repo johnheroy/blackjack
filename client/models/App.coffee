@@ -17,3 +17,9 @@ class window.App extends Backbone.Model
         @get('gameStatus').gameWon()
       else
         @get('gameStatus').gameLost()
+  resetAttr: ->
+    console.log('resetting')
+    @set 'deck', deck = new Deck()
+    @set 'gameStatus', new GameStatus()
+    @set 'playerHand', deck.dealPlayer()
+    @set 'dealerHand', deck.dealDealer()

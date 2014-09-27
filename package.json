@@ -1,0 +1,9 @@
+{
+  "name": "nw-demo",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "height": 600,
+    "width": 700
+  }
+}

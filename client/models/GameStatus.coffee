@@ -10,4 +10,4 @@ class window.GameStatus extends Backbone.Model
     @set 'status', 'You Lose!'
 
   gameTied: ->
-    @set 'status', 'You Lose!'
+    @set 'status', 'You Tied!'

@@ -15,3 +15,10 @@ class window.Card extends Backbone.Model
   flip: ->
     @set 'revealed', !@get 'revealed'
     @
+
+  fileName: ->
+    name = @get('rankName').toString().toLowerCase()
+    name += '_of_'
+    name += @get('suitName').toLowerCase()
+    {fileName: name}
+

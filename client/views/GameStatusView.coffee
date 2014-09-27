@@ -1,6 +1,6 @@
 class window.GameStatusView extends Backbone.View
 
-  className: 'game-status'
+  className: 'game-status alert'
 
   template: _.template '<%= status %>'
 
@@ -13,4 +13,9 @@ class window.GameStatusView extends Backbone.View
   render: ->
     @$el.html ''
     @$el.html @template @model.attributes
-    # We need to add a class to display color of status
+    if @model.attributes.status is 'You Win!'
+      @$el.addClass 'alert-success'
+    else if @model.attributes.status is 'You Lose!'
+      @$el.addClass 'alert-danger'
+    else if @model.attributes.status is 'You Tied!'
+      @$el.addClass 'alert-warning'

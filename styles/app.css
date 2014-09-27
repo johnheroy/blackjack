@@ -1,16 +1,50 @@
+body {
+  background: url('../img/felt.JPG') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: white  ;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  margin: 0 auto;
+  display: block;
+  width: 600px;
+  margin-top: 50px;
+}
+
 .card {
   float: left;
-  border: solid 1px black;
   width: 100px;
   border-radius: 5px;
   height: 140px;
   margin-right: 20px;
 }
 
+.card img {
+  width: 100px;
+  height: 140px;
+}
+
 .covered {
-  background-color: black;
+}
+
+.covered img {
+  content: url('../img/card-back.png') no-repeat;
+
 }
 
 .hand {
   overflow: auto;
+}
+
+.player-hand-container {
+  margin-bottom: 20px;
+}
+
+.new-game-button {
+  float: right;
 }
