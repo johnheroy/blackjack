@@ -8,3 +8,6 @@ class window.GameStatus extends Backbone.Model
 
   gameLost: ->
     @set 'status', 'You Lose!'
+
+  gameTied: ->
+    @set 'status', 'You Lose!'

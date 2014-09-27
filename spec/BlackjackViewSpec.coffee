@@ -99,25 +99,28 @@ describe 'stand', ->
     dealerHand.add three
 
   it 'should reveal other dealer card when player stands', ->
-    assert.strictEqual $appV.find('.dealer-hand-container').find('.covered').length, 1
+    assert.strictEqual appV.$el.find('.dealer-hand-container').find('.covered').length, 1
     appV.$el.find('.stand-button').click()
-    assert.strictEqual $appV.find('.dealer-hand-container').find('.covered').length, 0
+    assert.strictEqual appV.$el.find('.dealer-hand-container').find('.covered').length, 0
 
   it 'should have dealer play hand when player stands', ->
     appV.$el.find('.stand-button').click()
-    assert.strictEqual ($appV.find('.dealer-hand-container').find('.card').length > 2) , true
+    setTimeout ->
+      assert.strictEqual (appV.$el.find('.dealer-hand-container').find('.card').length > 2) , true
+    , 1500
 
-  xit 'dealer should hit until 17 or above', ->
-    # todo
+  it 'dealer should hit until 17 or above', ->
     appV.$el.find('.stand-button').click()
-
+    setTimeout ->
+      assert.strictEqual (parseInt(appV.$el.find('.dealer-hand-container').find('.score').text()) >= 17) , true
+    , 4000
 
   it 'should not give player more cards if they hit after standing', ->
     appV.$el.find('.stand-button').click()
     appV.$el.find('.hit-button').click()
     appV.$el.find('.hit-button').click()
     appV.$el.find('.hit-button').click()
-    assert.strictEqual $appV.find('.player-hand-container').find('.card').length, 2
+    assert.strictEqual appV.$el.find('.player-hand-container').find('.card').length, 2
 
   xit 'player can beat dealer after standing', ->
     appV.$el.find('.stand-button').click()

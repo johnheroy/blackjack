@@ -8,11 +8,21 @@ class window.AppView extends Backbone.View
   '
 
   events:
-    "click .hit-button": -> @model.get('playerHand').hit()
-    "click .stand-button": -> @model.get('playerHand').stand()
+    "click .hit-button": ->
+      #if @model.get 'currentTurn' == 'player'
+      @model.get('playerHand').hit()
+    "click .stand-button": ->
+      @lockButtons()
+      @model.get('playerHand').stand()
+      @model.get('dealerHand').stand()
 
   initialize: ->
     @render()
+    @listenTo(@model.get('gameStatus'), 'change:status', @lockButtons)
+
+  lockButtons: ->
+    $('.hit-button').attr 'disabled', true
+    $('.stand-button').attr 'disabled', true
 
   render: ->
     @$el.children().detach()

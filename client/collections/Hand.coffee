@@ -2,16 +2,34 @@ class window.Hand extends Backbone.Collection
 
   model: Card
 
+  defaults:
+    stood: false
+
+  events:
+    'change'
+
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop())
+    if @isDealer or !@stood
+      @add(@deck.pop()).last()
+
+  stand: ->
+    @stood = true
     if @isDealer
-      @checkDealerHand()
+      @each (card) ->
+        if !card.get 'revealed' then card.flip()
+      @playDealerHand()
+
+  playDealerHand: ->
+    if @getBestScore() < 17
+      setTimeout =>
+        @hit()
+        @playDealerHand()
+      , 1000
     else
-      @checkPlayerHand()
-    @last()
-    # if @getBestScore > 21 and !@isDealer then this.trigger
+      @checkDealerHand()
+
 
   scores: ->
     # The scores are an array of potential scores.
@@ -24,9 +42,9 @@ class window.Hand extends Backbone.Collection
 
     for cardValue in cardValues
       if cardValue is 1
-        copy = results.splice()
+        copy = results.slice()
         results = results.map (val) ->
-          val + 10
+          val + 11
         copy = copy.map (val) ->
           val + 1
         results = results.concat copy
@@ -34,15 +52,6 @@ class window.Hand extends Backbone.Collection
         results = results.map (val) ->
           val + cardValue
     results
-
-
-    # hasAce = @reduce (memo, card) ->
-    #   memo or card.get('value') is 1
-    # , false
-    # score = @reduce (score, card) ->
-    #   score + if card.get 'revealed' then card.get 'value' else 0
-    # , 0
-    # if hasAce then [score, score + 10] else [score]
 
   getBestScore: ->
     sortedScores = @scores().sort()
@@ -57,5 +66,4 @@ class window.Hand extends Backbone.Collection
       @trigger 'lost'
 
   checkDealerHand: ->
-    # todo
-
+    @trigger 'gameFinished'
