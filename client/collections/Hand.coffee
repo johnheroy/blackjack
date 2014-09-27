@@ -54,7 +54,6 @@ class window.Hand extends Backbone.Collection
 
   checkPlayerHand: ->
     if @getBestScore() > 21
-      console.log 'triggering'
       @trigger 'lost'
 
   checkDealerHand: ->

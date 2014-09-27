@@ -45,8 +45,10 @@ describe "hit", ->
     hand.add jack
     hand.add queen
     hand.add seven
-    console.log appV.$el.find('.game-status-container').html()
+    hand.hit()
+    # appV.model.get('gameStatus')
     assert.strictEqual appV.$el.find('.game-status').text(), 'You Lose!'
+
 
 
   it 'should show best player score with 1 ace', ->
