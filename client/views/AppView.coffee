@@ -19,7 +19,6 @@ class window.AppView extends Backbone.View
       @model.get('playerHand').stand()
       @model.get('dealerHand').stand()
     'click .new-game-button': ->
-      console.log("receive new game message")
       @model.resetAttr()
       @render()
 
@@ -32,7 +31,6 @@ class window.AppView extends Backbone.View
     $('.stand-button').attr 'disabled', true
 
   render: ->
-    console.log("render called")
     @$el.children().detach()
     @$el.html @template()
     @$('.game-status-container').html new GameStatusView(model: @model.get 'gameStatus').el
